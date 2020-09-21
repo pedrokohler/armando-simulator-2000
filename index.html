@@ -8,9 +8,12 @@
 </head>
 
 <body>
-    <textarea width="300px" height="300px"></textarea>
+    <textarea rows="20" cols="60"></textarea>
     </br>
-    <button>Translate</button>
+    <button>Escrever como o Armando</button>
+    </br>
+    </br>
+    <div></div>
 </body>
 
 <script>
@@ -50,12 +53,6 @@
             .join(" ");
     }
 
-    function addRandomParagraph(originalText) {
-        return originalText.split(" ")
-            .map(word => Math.random() < 0.02 ? word + '\n\n' : word)
-            .join(" ");
-    }
-
     function addRandomEmoticon(originalText) {
         return originalText.split(" ")
             .map(word => Math.random() < 0.01 ? word + ' 🤣🤣🤣🤣🤣 ' : word)
@@ -76,7 +73,7 @@
         finalText = addRandomParagraph(finalText);
         finalText = addRandomEmoticon(finalText);
 
-        console.log(finalText);
+        document.querySelector('div').innerText = finalText;
 
     });
 </script>
