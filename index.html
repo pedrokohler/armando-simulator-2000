@@ -19,15 +19,21 @@
 <script>
     const button = document.querySelector('button');
 
-    function randomUpperCase(originalText) {
+    function addRandomUpperCase(originalText) {
         const words = originalText.split(' ');
         const newText = words.map(word => Math.random() < 0.1 ? word.toUpperCase() : word).join(' ');
         return newText;
     }
 
-    function randomDoubleSpace(originalText) {
+    function addRandomDoubleSpace(originalText) {
         const words = originalText.split(' ');
         const newText = words.map(word => Math.random() < 0.05 ? word + " " : word).join(' ');
+        return newText;
+    }
+
+    function addRandomQuotes(originalText) {
+        const words = originalText.split(' ');
+        const newText = words.map(word => Math.random() < 0.005 ? '"' + word + '"' : word).join(' ');
         return newText;
     }
 
@@ -65,13 +71,14 @@
 
         const originalText = document.querySelector('textarea').value;
 
-        let finalText = randomUpperCase(originalText);
-        finalText = randomDoubleSpace(finalText);
+        let finalText = addRandomUpperCase(originalText);
+        finalText = addRandomQuotes(finalText);
         finalText = substituteQuotes(finalText);
         finalText = addRandomTitleCase(finalText);
-        finalText = addSpaceBetweenPonctuation(finalText);
         finalText = addRandomParagraph(finalText);
         finalText = addRandomEmoticon(finalText);
+        finalText = addSpaceBetweenPonctuation(finalText);
+        finalText = addRandomDoubleSpace(finalText);
 
         document.querySelector('div').innerText = finalText;
 
