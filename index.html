@@ -61,8 +61,20 @@
 
     function addRandomEmoticon(originalText) {
         return originalText.split(" ")
-            .map(word => Math.random() < 0.01 ? word + ' 🤣🤣🤣🤣🤣 ' : word)
+            .map(word => Math.random() < 0.005 ? word + ' 🤣🤣🤣🤣🤣 ' : word)
             .join(" ");
+    }
+
+    function addRandomSpacesAtTheBeginningOfParagraph(originalText) {
+        return originalText.split("\n\n")
+            .map((paragraph, index) => index > 0 && Math.random() < 0.7 ? `<pre>            ${paragraph}</pre>` : paragraph)
+            .join('\n\n');
+    }
+
+    function addRandomEmoticonWithDot(originalText) {
+        return originalText.split(".")
+            .map(word => Math.random() < 0.05 ? word + ' 🤣🤣🤣🤣🤣' : word)
+            .join(".");
     }
 
     button.addEventListener('click', e => {
@@ -79,8 +91,10 @@
         finalText = addRandomEmoticon(finalText);
         finalText = addSpaceBetweenPonctuation(finalText);
         finalText = addRandomDoubleSpace(finalText);
+        finalText = addRandomSpacesAtTheBeginningOfParagraph(finalText);
+        finalText = addRandomEmoticonWithDot(finalText);
 
-        document.querySelector('div').innerText = finalText;
+        document.querySelector('div').innerHTML = finalText;
 
     });
 </script>
