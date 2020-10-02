@@ -81,6 +81,12 @@
             .join(".");
     }
 
+    function addGymEmoticon(originalText) {
+        const numberOfEmoticons = Math.floor(5 * Math.random()) + 1;
+        const emoticons = "🏋️‍♂️".repeat(numberOfEmoticons);
+        return originalText.replace(/(academia)/i, `$1 ${emoticons}`);
+    }
+
     button.addEventListener('click', e => {
         e.preventDefault();
         e.stopPropagation();
@@ -97,6 +103,7 @@
         finalText = addRandomDoubleSpace(finalText);
         finalText = addRandomSpacesAtTheBeginningOfParagraph(finalText);
         finalText = addRandomEmoticonWithDot(finalText);
+        finalText = addGymEmoticon(finalText);
 
         document.querySelector('div').innerHTML = finalText;
 
