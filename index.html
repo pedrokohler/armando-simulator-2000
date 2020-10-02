@@ -78,7 +78,9 @@
     function addRandomEmoticonWithDot(originalText) {
         return originalText.split(".")
             .map(word => Math.random() < 0.05 ? word + ' 🤣🤣🤣🤣🤣' : word)
-            .join(".");
+            .join(".")
+            .trim()
+            .replace(/\.$/, "");
     }
 
     function addGymEmoticon(originalText) {
@@ -104,6 +106,7 @@
         finalText = addRandomSpacesAtTheBeginningOfParagraph(finalText);
         finalText = addRandomEmoticonWithDot(finalText);
         finalText = addGymEmoticon(finalText);
+        finalText.trim();
 
         document.querySelector('div').innerHTML = finalText;
 
