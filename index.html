@@ -20,73 +20,82 @@
     const ponctuationRegex = /([.,\/#!$%\^&\*;:{}=\-_`~()\?]{1,3})/g;
     const button = document.querySelector('button');
 
-    function addRandomUpperCase(originalText) {
-        const words = originalText.split(' ');
+    function addRandomUpperCase(text) {
+        const words = text.split(' ');
         const newText = words.map(word => Math.random() < 0.1 ? word.toUpperCase() : word).join(' ');
         return newText;
     }
 
-    function addRandomDoubleSpace(originalText) {
-        const words = originalText.split(' ');
+    function addRandomDoubleSpace(text) {
+        const words = text.split(' ');
         const newText = words.map(word => Math.random() < 0.05 ? word + " " : word).join(' ');
         return newText;
     }
 
-    function addRandomQuotes(originalText) {
-        const words = originalText.split(' ');
+    function addRandomQuotes(text) {
+        const words = text.split(' ');
         const newText = words.map(word => Math.random() < 0.005 ? '"' + word + '"' : word).join(' ');
         return newText;
     }
 
-    function substituteQuotes(originalText) {
-        return originalText.replace(/"/g, '"""').replace(/(\w)"/g, '$1 "').replace(/"(\w)/g, '" $1');
+    function substituteQuotes(text) {
+        return text.replace(/"/g, '"""').replace(/(\w)"/g, '$1 "').replace(/"(\w)/g, '" $1');
     }
 
-    function addRandomTitleCase(originalText) {
-        const words = originalText.split(' ');
+    function addRandomTitleCase(text) {
+        const words = text.split(' ');
         const newText = words
             .map(word => Math.random() < 0.7 ? word.replace(/(\w)/, v => v.toUpperCase()) : word)
             .join(' ');
         return newText;
     }
 
-    function addSpaceBetweenPonctuation(originalText) {
-        return originalText.replace(ponctuationRegex, " $1 ");
+    function addSpaceBetweenPonctuation(text) {
+        return text.replace(ponctuationRegex, " $1 ");
     }
 
-    function addRandomParagraph(originalText) {
-        return originalText.split(/(?!\.{2,3})\./g)
+    function addRandomParagraph(text) {
+        return text.split(/(?!\.{2,3})\./g)
             .map(sentence => Math.random() < 0.30 ? sentence + '.\n\n' : sentence + '.')
             .join("");
     }
 
-    function addRandomEmoticon(originalText) {
-        return originalText.split(" ")
+    function addRandomEmoji(text) {
+        return text.split(" ")
             .map(word => {
-                const emoticons = Math.random() < 0.9 ? ' 🤣🤣🤣🤣🤣 ' : ' 😏😏😏😏 '
-                return Math.random() < 0.005 ? word + emoticons : word
+                const emojis = Math.random() < 0.9 ? ' 🤣🤣🤣🤣🤣 ' : ' 😏😏😏😏 '
+                return Math.random() < 0.005 ? word + emojis : word
             })
             .join(" ");
     }
 
-    function addRandomSpacesAtTheBeginningOfParagraph(originalText) {
-        return originalText.split("\n\n")
-            .map((paragraph, index) => index > 0 && Math.random() < 0.7 ? `<pre>            ${paragraph}</pre>` : paragraph)
-            .join('\n\n');
+    function addRandomSpacesAtTheBeginningOfParagraph(text) {
+        return text.split("\n\n")
+            .map((paragraph, index) =>
+                index > 0 && Math.random() < 0.7 && paragraph.length
+                    ? `<pre>            ${paragraph}</pre>`
+                    : paragraph
+            ).join('\n\n');
     }
 
-    function addRandomEmoticonWithDot(originalText) {
-        return originalText.split(".")
+    function addRandomEmojiWithDot(text) {
+        return text.split(".")
             .map(word => Math.random() < 0.05 ? word + ' 🤣🤣🤣🤣🤣' : word)
             .join(".")
             .trim()
             .replace(/\.$/, "");
     }
 
-    function addGymEmoticon(originalText) {
-        const numberOfEmoticons = Math.floor(5 * Math.random()) + 1;
-        const emoticons = "🏋️‍♂️".repeat(numberOfEmoticons);
-        return originalText.replace(/(academia)/i, `$1 ${emoticons}`);
+    function addGymEmoji(text) {
+        const numberOfEmojis = Math.floor(5 * Math.random()) + 1;
+        const emojis = "🏋️‍♂️".repeat(numberOfEmojis);
+        return text.replace(/(academia)/i, `$1 ${emojis}`);
+    }
+
+    function trimParagraphs(text) {
+        return text.split('\n\n')
+            .map(paragraph => paragraph.trim())
+            .join('\n\n');
     }
 
     button.addEventListener('click', e => {
@@ -94,21 +103,24 @@
         e.stopPropagation();
 
         const originalText = document.querySelector('textarea').value;
+        const functions = [
+            addRandomUpperCase,
+            addRandomQuotes,
+            substituteQuotes,
+            addRandomTitleCase,
+            addRandomEmoji,
+            addSpaceBetweenPonctuation,
+            addRandomDoubleSpace,
+            addRandomEmojiWithDot,
+            addGymEmoji,
+            addRandomParagraph,
+            trimParagraphs,
+            addRandomSpacesAtTheBeginningOfParagraph,
+        ]
 
-        let finalText = addRandomUpperCase(originalText);
-        finalText = addRandomQuotes(finalText);
-        finalText = substituteQuotes(finalText);
-        finalText = addRandomTitleCase(finalText);
-        finalText = addRandomParagraph(finalText);
-        finalText = addRandomEmoticon(finalText);
-        finalText = addSpaceBetweenPonctuation(finalText);
-        finalText = addRandomDoubleSpace(finalText);
-        finalText = addRandomSpacesAtTheBeginningOfParagraph(finalText);
-        finalText = addRandomEmoticonWithDot(finalText);
-        finalText = addGymEmoticon(finalText);
-        finalText.trim();
+        const finalText = functions.reduce((text, func) => func(text), originalText);
 
-        document.querySelector('div').innerHTML = finalText;
+        document.querySelector('div').innerHTML = finalText.trim();
 
     });
 </script>
