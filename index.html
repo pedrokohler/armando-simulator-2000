@@ -89,7 +89,13 @@
     function addGymEmoji(text) {
         const numberOfEmojis = Math.floor(5 * Math.random()) + 1;
         const emojis = "🏋️‍♂️".repeat(numberOfEmojis);
-        return text.replace(/(academia)/i, `$1 ${emojis}`);
+        return text.replace(/(academia)/ig, `$1 ${emojis}`);
+    }
+
+    function addPoopEmoji(text) {
+        return text
+            .replace(/(coc[ôo]|bosta|merda|caca|bostinha|merdinha|caquinha|cocozinho)(?=[\s,.:;"'!\?]|$)/ig
+                , "$1 💩💩💩");
     }
 
     function trimParagraphs(text) {
@@ -103,7 +109,8 @@
         e.stopPropagation();
 
         const originalText = document.querySelector('textarea').value;
-        const functions = [
+        const pipe = (...funcs) => (x) => funcs.reduce((res, func) => func(res), x);
+        const processText = pipe(
             addRandomUpperCase,
             addRandomQuotes,
             substituteQuotes,
@@ -113,12 +120,12 @@
             addRandomDoubleSpace,
             addRandomEmojiWithDot,
             addGymEmoji,
+            addPoopEmoji,
             addRandomParagraph,
             trimParagraphs,
             addRandomSpacesAtTheBeginningOfParagraph,
-        ]
-
-        const finalText = functions.reduce((text, func) => func(text), originalText);
+        );
+        const finalText = processText(originalText);
 
         document.querySelector('div').innerHTML = finalText.trim();
 
