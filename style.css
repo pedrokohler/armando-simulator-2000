@@ -1,0 +1,52 @@
+html {
+    min-height: 100%;
+}
+
+body {
+    margin: 0%;
+    background: linear-gradient(45deg, #151514, #464746);
+    padding: 30px;
+}
+
+textarea {
+    border-radius: 36px;
+    margin: 16px;
+    padding: 24px;
+    box-shadow: 0px 8px 16px 8px #151514;
+    border-style: none;
+    font-family: 'Courier Prime', monospace;
+    background-color: #CFDBD5;
+    color: #151514;
+    font-size: 16px;
+
+}
+
+button {
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+    box-shadow: 0px 8px 16px 8px #151514;
+    border-style: none;
+    text-transform: uppercase;
+    color: #E8EDDF;
+    background-color: #B90504;
+    font-weight: bold;
+    font-family: 'Courier Prime', monospace;
+}
+
+hr {
+    height:1px;
+    border-width:0px;
+    color:#151514;
+    background-color:#151514;
+    width: 50%;
+}
+
+.container {
+    max-width: 400px;
+    font-family: 'Courier Prime', monospace;
+    color: #E8EDDF;
+    padding: 16px;
+    margin: 16px;
+    text-align: left;
+}
