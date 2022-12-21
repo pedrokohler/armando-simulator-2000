@@ -21,15 +21,14 @@ textarea {
 }
 
 button {
-    border-radius: 8px;
+    border-radius: 32px;
     margin: 8px;
-    padding: 8px;
+    padding: 8px 24px 8px 24px;
     box-shadow: 0px 8px 16px 8px #151514;
     border-style: none;
     text-transform: uppercase;
     color: #E8EDDF;
     background-color: #B90504;
-    font-weight: bold;
     font-family: 'Courier Prime', monospace;
     font-size: 20px;
 }
